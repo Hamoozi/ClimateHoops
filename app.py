@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 def configure():
     load_dotenv()
 
+#Loops through cities entered and displays them on GUI
+#Will add option for images
 def getWeather(canvas):
     configure()
     city = textField.get()
