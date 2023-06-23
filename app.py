@@ -44,8 +44,8 @@ def getWeather(canvas):
 canvas = tk.Tk()
 canvas.geometry("600x500")
 canvas.title("Weather App")
-f = ("poppins", 20, "bold")
-t = ("poppins", 20, "bold")
+f = ("poppins", 15, "bold")
+t = ("poppins", 15, "bold")
 z = ("poppins", 20, "bold")
 
 textField = tk.Entry(canvas, justify='center', width = 20, font = t)
