@@ -27,6 +27,9 @@ def getWeather(canvas):
 
     if wind > 5:
         label3.config(text = "Weather not optimable for Basketball")
+    else:
+        label3.config(text = "Go shoot some hoops")
+
 
     final_info = condition + "\nTemperature: " + str(temp) + "°C" 
     final_data = "Min Temp: " + str(min_temp) + "°C" + "\n" + "Max Temp: " + str(max_temp) + "°C" +"\n" + "Pressure: " + str(pressure) + "\n" +"Humidity: " + str(humidity) + \
