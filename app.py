@@ -2,18 +2,15 @@ import tkinter as tk
 import requests
 import time
 import os
-from dotenv import load_dotenv
+from tkVideoPlayer import TkinterVideo
 
-#Hides API key for safety
-def configure():
-    load_dotenv()
+
 
 #Loops through cities entered and displays them on GUI
 #Will add option for images
 def getWeather(canvas):
-    configure()
-    city = textField.get()
-    api = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={os.getenv('apikey')}"
+    #city = textField.get()
+    api = f"https://api.openweathermap.org/data/2.5/weather?appid=API&q=Amherst"
 
     json_data = requests.get(api).json()
     condition = json_data['weather'][0]['main']
@@ -27,38 +24,25 @@ def getWeather(canvas):
     sunset = time.strftime('%I:%M:%S', time.gmtime(json_data['sys']['sunset'] - 21600))
 
 
-    if wind > 5:
-        label3.config(text = "Weather not optimable for Basketball")
-    else:
-        label3.config(text = "Go shoot some hoops")
-
-
     final_info = condition + "\nTemperature: " + str(temp) + "°C" 
     final_data = "Min Temp: " + str(min_temp) + "°C" + "\n" + "Max Temp: " + str(max_temp) + "°C" +"\n" + "Pressure: " + str(pressure) + "\n" +"Humidity: " + str(humidity) + \
     "\n" +"Wind Speed: " + str(wind) + "\n" + "Sunrise: " + sunrise + "\n" + "Sunset: " + sunset
 
-    
+    if wind < 2:
+        videoplayer.load(r"basket.gif")
+        videoplayer.pack(expand=True)
+    else:
+        videoplayer.load(r"home.gif")
+        videoplayer.pack(expand=True, fill="both")
+        
 
-    label1.config(text = final_info)
-    label2.config(text = final_data)
+
+root = tk.Tk()
 
 
-canvas = tk.Tk()
-canvas.geometry("600x500")
-canvas.title("Weather App")
-f = ("poppins", 15, "bold")
-t = ("poppins", 15, "bold")
-z = ("poppins", 20, "bold")
+videoplayer = TkinterVideo(master=root, scaled=True)
+getWeather(videoplayer)
 
-textField = tk.Entry(canvas, justify='center', width = 20, font = t)
-textField.pack(pady = 20)
-textField.focus()
-textField.bind('<Return>', getWeather)
+videoplayer.play() # play the video
 
-label1 = tk.Label(canvas, font=t)
-label1.pack()
-label2 = tk.Label(canvas, font=f)
-label2.pack()
-label3 = tk.Label(canvas, font=z)
-label3.pack()
-canvas.mainloop()
+root.mainloop()
