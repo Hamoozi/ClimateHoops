@@ -13,7 +13,7 @@ def configure():
 def getWeather(canvas):
     configure()
     city = textField.get()
-    api = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={os.getenv('apikey')}"
+    api = f"https://api.openweathermap.org/data/2.5/weather?appid={os.getenv('api_key')}&q={city}"
 
     json_data = requests.get(api).json()
     condition = json_data['weather'][0]['main']
@@ -27,7 +27,7 @@ def getWeather(canvas):
     sunset = time.strftime('%I:%M:%S', time.gmtime(json_data['sys']['sunset'] - 21600))
 
 
-    if wind > 5:
+    if wind > 2 or humidity > 80 or min_temp > 80:
         label3.config(text = "Weather not optimable for Basketball")
     else:
         label3.config(text = "Go shoot some hoops")
